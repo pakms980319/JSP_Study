@@ -12,7 +12,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-
+<!-- hbsh2330 -->
 	<!-- FrontController Servlet -->
 	<servlet>
 		<servlet-name>FrontController</servlet-name>
