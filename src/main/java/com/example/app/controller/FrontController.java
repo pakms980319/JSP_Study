@@ -10,6 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.app.controller.item.ItemBusinessManDelete;
+import com.example.app.controller.item.ItemBusinessManInfo;
+import com.example.app.controller.item.ItemBusinessManSearch;
+import com.example.app.controller.item.ItemBusinessManUpdate;
+import com.example.app.controller.item.ItemInfoController;
+import com.example.app.controller.item.ItemSearchController;
+import com.example.app.controller.user.UserDeleteController;
+import com.example.app.controller.user.UserInfoController;
+import com.example.app.controller.user.UserJoinBusinessManSignUpController;
+import com.example.app.controller.user.UserJoinController;
+import com.example.app.controller.user.UserJoinUserSignUpController;
+import com.example.app.controller.user.UserLoginController;
+import com.example.app.controller.user.UserLogoutController;
+import com.example.app.controller.user.UserUpdateController;
+
 public class FrontController extends HttpServlet {
 	private Map<String, SubController> map;
 
@@ -20,15 +35,26 @@ public class FrontController extends HttpServlet {
 		map = new HashMap<String, SubController>();
 		String path = config.getServletContext().getContextPath();
 		
-		// '/'
+		// '/'	
 		map.put(path + "/", new HomeController());
 		
-		// book
-//		map.put(path + "/book/add", new BookAddController());
-//		map.put(path + "/book/read", new BookReadController());
-//		map.put(path + "/book/list", new BookListController());
-//		map.put(path + "/book/update", new BookUpdateController());
-//		map.put(path + "/book/delete", new BookDeleteController());
+		// user
+		map.put(path + "/user/delete", new UserDeleteController());
+		map.put(path + "/user/info", new UserInfoController());
+		map.put(path + "/user/join/businessMan", new UserJoinBusinessManSignUpController());
+		map.put(path + "/user/join", new UserJoinController());
+		map.put(path + "/user/join/user", new UserJoinUserSignUpController());
+		map.put(path + "/user/login", new UserLoginController());
+		map.put(path + "/user/logout", new UserLogoutController());
+		map.put(path + "/user/update", new UserUpdateController());
+		
+		// item
+		map.put(path + "/item/businessMan/delete", new ItemBusinessManDelete());
+		map.put(path + "/item/businessMan/info", new ItemBusinessManInfo());
+		map.put(path + "/item/businessMan/search", new ItemBusinessManSearch());
+		map.put(path + "/item/businessMan/update", new ItemBusinessManUpdate());
+		map.put(path + "/item/info", new ItemInfoController());
+		map.put(path + "/item/search", new ItemSearchController());
 		
 	}
 	

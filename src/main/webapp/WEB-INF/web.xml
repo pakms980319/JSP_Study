@@ -12,7 +12,27 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-<!-- hbsh2330 -->
+
+	<!-- Default Servlet -->
+	<servlet>
+		<servlet-name>default</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<!-- 정적 자원 요청에 대한 URL 패턴 지정 -->
+		<url-pattern>/resources/*</url-pattern>
+	</servlet-mapping>
+
 	<!-- FrontController Servlet -->
 	<servlet>
 		<servlet-name>FrontController</servlet-name>
@@ -22,10 +42,22 @@
 		<servlet-name>FrontController</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-<<<<<<< HEAD
-	
-	<!-- 최원준 -->
+
+	<filter>
+		<filter-name>PermissionFilter</filter-name>
+		<filter-class>com.example.app.filter.PermissionFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>PermissionFilter</filter-name>
+		<url-pattern>/user/logout</url-pattern>
+		<url-pattern>/user/info</url-pattern>
+		<url-pattern>/user/update</url-pattern>
+		<url-pattern>/user/delete</url-pattern>
+		<url-pattern>/item/businessMan/search</url-pattern>
+		<url-pattern>/item/businessMan/info</url-pattern>
+		<url-pattern>/item/businessMan/delete</url-pattern>
+		<url-pattern>/item/businessMan/update</url-pattern>
+	</filter-mapping>
 </web-app>
-=======
-</web-app>
->>>>>>> 8740017cda507cc46d32e49f703a06d773899951
+

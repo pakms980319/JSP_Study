@@ -5,4 +5,21 @@
     <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
+	<!--  
+    	HIKARI CONNECTION POOL
+    -->
+	<Resource name="jdbc/HikariDataSource"
+          auth="Container"
+          type="javax.sql.DataSource"
+          factory="com.zaxxer.hikari.HikariJNDIFactory"
+          jdbcUrl="jdbc:mysql://localhost:3306/shopping"
+          driverClassName="com.mysql.cj.jdbc.Driver"
+          username="root"
+          password="1234"
+          maximumPoolSize="10"
+          connectionTimeout="30000"
+          idleTimeout="600000"
+          maxLifetime="1800000"
+    /> 
+
 </Context>

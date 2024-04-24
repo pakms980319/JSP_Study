@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+/* 페이지 전체에 적용되는 스타일 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+/* 모달 창의 스타일 */
+.modal-dialog-centered {
+	margin-top: 15vh; /* 화면 세로 중앙에 표시될 수 있도록 위치 조정 */
+}
+/* 메인 컨텐츠의 스타일 */
+main {
+	padding: 20px;
+}
+/* footer의 스타일 */
+footer {
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	padding: 10px 0;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
