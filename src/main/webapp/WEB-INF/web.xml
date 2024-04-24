@@ -22,4 +22,6 @@
 		<servlet-name>FrontController</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 최원준 -->
 </web-app>
