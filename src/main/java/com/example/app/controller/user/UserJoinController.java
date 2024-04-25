@@ -7,14 +7,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.example.app.controller.SubController;
 import com.example.app.domain.common.ConnectionPool_ByHikari;
+import com.example.app.domain.user.service.UserService;
+import com.example.app.domain.user.service.UserServiceImpl;
 
 public class UserJoinController implements SubController {
 
 	ConnectionPool_ByHikari connectionPool;
-
+	UserService service;
 	public UserJoinController() {
 		try {
 			connectionPool = ConnectionPool_ByHikari.getInstance();
+			service = UserServiceImpl.getInstance();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +40,7 @@ public class UserJoinController implements SubController {
 
 			// POST 요청 (etc Method) (api 문서 만들기)
 			// 01 파라미터 받기
-
+		
 			// 02 유효성 체크
 
 			// 03 서비스 실행

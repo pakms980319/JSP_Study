@@ -1,3 +1,4 @@
+<%@page import="com.example.app.domain.user.dto.Session"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -19,9 +20,15 @@
 
 	<%
 		String msg = null;
+		String name = null;
+		Session sessionTbl = null;
 		if (session.getAttribute("msg") != null)
 			msg = (String) session.getAttribute("msg");
 		session.removeAttribute("msg");
+		if(session.getAttribute("name") != null)
+			name = (String) session.getAttribute("name");
+		if(session.getAttribute("session") != null)
+			sessionTbl = (Session)session.getAttribute("session");
 	%>
 
 	<script>
@@ -40,7 +47,7 @@
 	<!-- 메인 컨텐츠 -->
 	<main>
 		<h2>메인 홈페이지</h2>
-		<p>환영합니다! 이 곳은 메인 홈페이지입니다.</p>
+		<p>${name} 환영합니다! 이 곳은 메인 홈페이지입니다.</p>
 		<p>원하시는 상품을 검색해 보세요.</p>
 		<form class="form-inline">
 			<input class="form-control mr-sm-2" type="search" placeholder="상품 검색"

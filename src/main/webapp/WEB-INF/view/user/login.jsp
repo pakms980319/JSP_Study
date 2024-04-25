@@ -27,9 +27,9 @@
 	<main>
 		<h2>로그인</h2>
 
-		<form action="/login" method="post">
-			<label for="username">사용자명:</label> <input type="text" id="username"
-				name="username" required> <label for="password">비밀번호:</label>
+		<form method="post">
+			<label for="username">사용자명:</label> <input type="text" id="userId"
+				name="userId" required> <label for="password">비밀번호:</label>
 			<input type="password" id="password" name="password" required>
 
 			<input type="submit" value="로그인">

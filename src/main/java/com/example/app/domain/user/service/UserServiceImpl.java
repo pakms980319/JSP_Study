@@ -175,6 +175,7 @@ public class UserServiceImpl implements UserService {
 		result.put("msg", "로그인 성공!");
 		result.put("sessionId", idtmp);
 		result.put("session", session);
+		result.put("name", savedUser.getName());
 		SessionIdList.add(idtmp);
 		connectionPool.txCommit();
 		return result;

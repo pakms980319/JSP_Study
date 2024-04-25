@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 public class ConnectionPool_ByHikari {
 
 
-	protected String url ="jdbc:mysql://localhost:3306/bookdb";
+	protected String url ="jdbc:mysql://localhost:3306/shopping";
 	protected String id = "root";
 	protected String pw = "1234";
 
