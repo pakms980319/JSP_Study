@@ -6,9 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.app.domain.user.dao.UserDao;
-import com.example.app.domain.user.dao.UserDaoImpl;
-
 public class HomeController implements SubController {
 
 	@Override

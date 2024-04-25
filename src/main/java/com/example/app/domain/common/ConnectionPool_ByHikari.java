@@ -9,9 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
 //import Ch36.Properties.CommonProperties;
 
 public class ConnectionPool_ByHikari {

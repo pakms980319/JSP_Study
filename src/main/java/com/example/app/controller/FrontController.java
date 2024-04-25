@@ -26,6 +26,10 @@ import com.example.app.controller.user.UserLogoutController;
 import com.example.app.controller.user.UserUpdateController;
 
 public class FrontController extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<String, SubController> map;
 
 	@Override
@@ -37,6 +41,7 @@ public class FrontController extends HttpServlet {
 		
 		// '/'	
 		map.put(path + "/", new HomeController());
+		map.put(path + "/favicon.ico", new HomeController());
 		
 		// user
 		map.put(path + "/user/delete", new UserDeleteController());

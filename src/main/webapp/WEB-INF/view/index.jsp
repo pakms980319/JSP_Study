@@ -14,9 +14,23 @@
 <!-- common.css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/static/css/common.css" />
-
 </head>
 <body>
+
+	<%
+		String msg = null;
+		if (session.getAttribute("msg") != null)
+			msg = (String) session.getAttribute("msg");
+		session.removeAttribute("msg");
+	%>
+
+	<script>
+		const msg = "<%= msg%>";
+
+		if (msg !== "null")
+			alert(msg);
+		
+	</script>
 
 	<header>
 		<!-- nav -->
@@ -40,13 +54,6 @@
 		<!-- footer  -->
 		<%@ include file="/resources/static/jsp/footer.jsp"%>
 	</footer>
-
-	<!-- 부트스트랩 자바스크립트 -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -14,7 +14,7 @@ public class UserJoinController implements SubController {
 
 	public UserJoinController() {
 		try {
-			connectionPool = connectionPool.getInstance();
+			connectionPool = ConnectionPool_ByHikari.getInstance();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

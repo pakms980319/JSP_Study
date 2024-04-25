@@ -14,7 +14,7 @@ public class UserLoginController implements SubController {
 	
 	public UserLoginController() {
 		try {
-			connectionPool = connectionPool.getInstance();
+			connectionPool = ConnectionPool_ByHikari.getInstance();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

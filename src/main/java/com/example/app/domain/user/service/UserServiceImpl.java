@@ -193,7 +193,7 @@ public class UserServiceImpl implements UserService {
 			result.put("msg", "현재 로그인된 상태가 아닙니다.");
 			return result;
 		} else {
-			SessionIdList.remove(new Integer(sessionId));
+			SessionIdList.remove(sessionId);
 		}
 		
 		// 2 Session 테이블에서 dto 삭제

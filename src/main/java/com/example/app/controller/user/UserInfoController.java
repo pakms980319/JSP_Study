@@ -9,7 +9,7 @@ public class UserInfoController implements SubController {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("UserInfoController execute()");
+		
 	}
 	
 }
