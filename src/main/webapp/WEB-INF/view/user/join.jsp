@@ -29,7 +29,7 @@
 		<!-- 유저 및 사업자 회원가입 버튼 -->
 		<div class="mt-5">
 			<a href="/user/join/user" class="btn btn-primary btn-lg mr-4">일반 유저
-				회원가입</a> <a href="/business/signup" class="btn btn-primary btn-lg">사업자
+				회원가입</a> <a href="/user/join/businessMan" class="btn btn-primary btn-lg">사업자
 				회원가입</a>
 		</div>
 	</main>
