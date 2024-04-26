@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+/* 페이지 전체에 적용되는 스타일 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	display: flex;
+	/* Flexbox 사용 */
+	min-height: 100vh;
+	/* 최소한 화면 높이만큼 페이지 높이 설정 */
+	flex-direction: column;
+	/* 요소들을 세로로 배치 */
+}
+
+/* 메인 컨텐츠의 스타일 */
+main {
+	padding: 20px;
+	flex-grow: 1;
+	/* main 요소가 자동으로 세로로 확장되도록 설정 */
+	display: flex;
+	justify-content: center;
+	/* 수평 가운데 정렬 */
+	align-items: center;
+	/* 수직 가운데 정렬 */
+}
+
+/* footer의 스타일 */
+footer {
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	padding: 10px 0;
+	width: 100%;
+}
+
+/* 추가한 스타일 */
+.form-group {
+	width: 300px; /* 너비 조정 */
+	margin: 0 auto; /* 수평 가운데 정렬 */
+}
+
+/* 에러 페이지 스타일 */
+.error-page {
+	text-align: center;
+	margin-top: 50px;
+}
