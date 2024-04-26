@@ -280,6 +280,8 @@ public class UserServiceImpl implements UserService {
 		connectionPool.txStart();
 		Map<String, Object> result = new HashMap<String, Object>();
 		User savedUser = userDao.select(id);
+		Session session = sessionDao.select(id);
+		int sessionId = session.getSessionId();
 		
 		// 유저 데이터 읽기 실패
 		if(savedUser == null) {
@@ -305,6 +307,7 @@ public class UserServiceImpl implements UserService {
 		// 회원탈퇴 성공
 		result.put("response", true);
 		result.put("msg", "회원탈퇴에 성공하였습니다. 다음에 또 이용해주세요.");
+		SessionIdList.remove(new Integer(sessionId));
 		
 		connectionPool.txCommit();
 		return result;

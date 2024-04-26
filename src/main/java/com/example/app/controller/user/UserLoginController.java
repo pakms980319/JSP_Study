@@ -62,7 +62,7 @@ public class UserLoginController implements SubController {
 				result = service.login(userId, password);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				connectionPool.txCommit();
+				connectionPool.txRollBack();
 			}
 
 			if (result != null) {

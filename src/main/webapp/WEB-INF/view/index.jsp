@@ -9,6 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>홈페이지</title>
 
+<link rel="icon" href="data:," />
+
 <!-- link  -->
 <%@ include file="/resources/static/jsp/link.jsp"%>
 
@@ -19,17 +21,18 @@
 <body>
 
 	<%
-	String msg = null;
-
-	if (session.getAttribute("msg") != null)
-		msg = (String) session.getAttribute("msg");
-	session.removeAttribute("msg");
+		String msg = null;
+	
+		if (session.getAttribute("msg") != null) {
+			msg = (String)session.getAttribute("msg");
+		}
+		
+		session.removeAttribute("msg");
 	%>
 
 	<script>
-		const msg = "<%=msg%>
-		";
-
+		const msg = "<%=msg%>";
+		
 		if (msg !== "null")
 			alert(msg);
 	</script>
@@ -49,7 +52,7 @@
 				<p>${name}님 환영합니다! 이 곳은 메인 홈페이지입니다.</p>
 			</c:when>
 			<c:otherwise>
-				<p>환영합니다! 이 곳은 메인 홈페이지입니다.</p>
+				<p>방문자님 환영합니다! 이 곳은 메인 홈페이지입니다.</p>
 			</c:otherwise>
 		</c:choose>
 

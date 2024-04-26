@@ -91,12 +91,6 @@ public class UserJoinUserSignUpController implements SubController {
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();
-
-			try {
-				connectionPool.txRollBack();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 	
