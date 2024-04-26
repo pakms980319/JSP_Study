@@ -54,14 +54,10 @@ public class UserJoinBusinessManSignUpController implements SubController {
 		String email = req.getParameter("email");
 		
 		// 02 유효성 체크
-		if (!isValid(bussinessManId) || !isValid(userId)) {
+		if (!isValid(bussinessManId) || !isValid(userId) || !isValid(password) || !isValid(name) || !isValid(name) || !isValid(phoneNumber) || !isValid(email)) {
 			throw new ServletException("회원 가입 오류입니다. 다시 시도해주세요.");
 		}
-		
-		if (!isValid(userId) || !isValid(password) || !isValid(name) || !isValid(name) || !isValid(phoneNumber) || !isValid(email)) {
-			throw new ServletException("회원 가입 오류입니다. 다시 시도해주세요");
-		}
-		
+
 		// 03 서비스 실행
 		
 		BussinessMan bussinessman = new BussinessMan(bussinessManId, userId);
@@ -83,13 +79,15 @@ public class UserJoinBusinessManSignUpController implements SubController {
 			
 			HttpSession session = req.getSession();
 			session.setAttribute("msg", result.get("msg"));
+	
 			
 		} else {
 			throw new ServletException("잘못된 요청처리입니다.");
 		}
 		
 		// 04 view
-		
+		resp.sendRedirect("/");
+		return;
 		
 		} catch (Exception e) {
 			e.printStackTrace();
