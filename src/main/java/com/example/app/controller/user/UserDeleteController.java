@@ -40,6 +40,7 @@ public class UserDeleteController implements SubController {
 				req.getRequestDispatcher("/WEB-INF/view/user/userDeleteChkPW.jsp").forward(req, resp);
 				return;
 			}
+			
 			String password = req.getParameter("pw");
 			
 			HttpSession session = req.getSession();
@@ -62,6 +63,8 @@ public class UserDeleteController implements SubController {
 				connectionPool.txRollBack();
 			}
 			
+			System.out.println("testDelte4");
+			
 			if (result != null) {
 				if ( !(boolean) result.get("response") ) {
 					req.setAttribute("msg", result.get("msg"));
@@ -70,7 +73,9 @@ public class UserDeleteController implements SubController {
 				}
 				
 				session.invalidate();
-								
+				
+				session = req.getSession();
+				
 				session.setAttribute("msg", result.get("msg"));
 				
 				resp.sendRedirect("/");
