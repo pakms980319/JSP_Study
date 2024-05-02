@@ -18,7 +18,6 @@
 
 </head>
 <body>
-
 	<header>
 		<!-- nav -->
 		<%@ include file="/resources/static/jsp/nav.jsp"%>
@@ -35,8 +34,7 @@
 					</tr>
 					<tr>
 						<th scope="row">역할</th>
-						<td>
-							<c:choose>
+						<td><c:choose>
 								<c:when test="${user.role eq 'User'}">
                 					일반 사용자
             					</c:when>
@@ -46,8 +44,7 @@
 								<c:otherwise>
                 					기타 역할
             					</c:otherwise>
-							</c:choose>
-						</td>
+							</c:choose></td>
 					</tr>
 
 					<!--  businessMan일 때만 추가 정보 표시 -->
