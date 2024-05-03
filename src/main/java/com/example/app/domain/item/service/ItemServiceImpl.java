@@ -85,8 +85,8 @@ public class ItemServiceImpl implements ItemService {
 		connectionPool.txStart();
 		Map<String, Object> result = new HashMap<String, Object>();
 		String bussinessManId = bussinessManDao.select(userId).getBussinessManId();
-		item.setBussinessManId(bussinessManId);
-		
+
+		item.setBussinessManId(bussinessManId); //조회된 bussinessManId을 item의 setBussinessManId에 넣는다.
 		boolean isSaved = itemDao.insert(item);
 		
 		// 상품등록 실패
