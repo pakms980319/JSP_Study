@@ -44,4 +44,6 @@ public interface UserService {
 
 //	// 현재 접속중인 세션 Id list 리턴
 	List<Integer> getSessionIdList();
+	
+	BussinessMan getBussinessMan(String bussinessManId) throws Exception;
 }

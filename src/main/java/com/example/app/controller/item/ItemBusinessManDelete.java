@@ -39,15 +39,20 @@ public class ItemBusinessManDelete implements SubController {
 			String method = req.getMethod();
 			if (session.getAttribute("session") != null) {
 				Session getSession = (Session) session.getAttribute("session");
-				String role = getSession.getRole();
 				userId = getSession.getUserId();
 				// GET 요청
 				if (method.contains("GET")) {
-					// 유효성 체크
-					if (!(role.equals("BussinessMan"))) {
-						req.setAttribute("msg", "상품삭제는 사업자만 가능합니다");
-						req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
+					int itemId = Integer.parseInt(req.getParameter("itemId"));
+					Item item = null;
+					try {
+						item = service.getItem(itemId);
+					} catch (SQLException e) {
+						session.setAttribute("msg", "제거하려는 상품 Id가 없습니다. 상품 Id를 확인해 주세요.");
+						req.getRequestDispatcher("/WEB-INF/view/item/itemDetail.jsp").forward(req, resp);
 					}
+					item = service.getItem(itemId);
+					System.out.println("item : " + item);
+					session.setAttribute("delete", "다음과 같은 상품을 삭제하시겠습니까?" + item);
 					req.getRequestDispatcher("/WEB-INF/view/item/delete.jsp").forward(req, resp);
 					return;
 				}
@@ -55,18 +60,7 @@ public class ItemBusinessManDelete implements SubController {
 				req.setAttribute("msg", "상품삭제는 로그인을 하고나서 삭제가 가능합니다.");
 				req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
 			}
-			int itemId = Integer.parseInt(req.getParameter("itemId"));
-			Item item = null;
-			try {
-			item = service.getItem(itemId);
-			}catch (SQLException e) {
-				session.setAttribute("msg", "제거하려는 상품 Id가 없습니다. 상품 Id를 확인해 주세요.");
-				req.getRequestDispatcher("/WEB-INF/view/item/delete.jsp").forward(req, resp);
-			}
-			item = service.getItem(itemId);
-			System.out.println("item : " + item);
-			session.setAttribute("delete", "다음과 같은 상품을 삭제하시겠습니까?" + item);
-			req.getRequestDispatcher("/WEB-INF/view/item/delete.jsp").forward(req, resp);
+
 		} catch (Exception e) {
 
 			e.printStackTrace();

@@ -377,6 +377,14 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Override
+	public BussinessMan getBussinessMan(String bussinessManId) throws Exception {
+		connectionPool.txStart();
+		BussinessMan bussinessMan = bussinessManDao.select2(bussinessManId);
+		connectionPool.txCommit();
+		return bussinessMan;
+	}
+	
 	// DB Session 비우기
 	@Override
 	public boolean deleteAllSession() throws Exception {
