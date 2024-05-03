@@ -5,4 +5,5 @@ import com.example.app.domain.user.dto.Session;
 
 public interface SessionDao extends Crud<Session, Integer> {
 	Session select(String userId) throws Exception;
+	boolean deleteAll() throws Exception;
 }

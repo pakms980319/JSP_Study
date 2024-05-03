@@ -124,4 +124,17 @@ public class SessionDaoImpl extends CommonDao implements SessionDao {
 		
 		return result > 0;
 	}
+
+	@Override
+	public boolean deleteAll() throws Exception {
+		pstmt = conn.prepareStatement("DELETE FROM SESSION");
+
+		int result = pstmt.executeUpdate();
+		
+		freeConnection(pstmt);
+		
+		return result > 0;
+	}
+	
+	
 }

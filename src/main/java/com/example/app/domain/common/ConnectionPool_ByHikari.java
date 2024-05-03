@@ -19,10 +19,7 @@ public class ConnectionPool_ByHikari {
 	protected String pw = "1234";
 
 	//05-03 application.properties
-	protected Connection conn =null;
-	protected PreparedStatement pstmt = null;
-	protected ResultSet rs = null;
-	
+	protected Connection conn =null;	
 	
 	//05-02 Hikari
 	private DataSource dataSource;
