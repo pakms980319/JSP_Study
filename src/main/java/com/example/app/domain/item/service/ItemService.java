@@ -2,6 +2,7 @@ package com.example.app.domain.item.service;
 
 import java.util.Map;
 
+import com.example.app.domain.item.dto.Criteria;
 import com.example.app.domain.item.dto.Item;
 
 public interface ItemService {
@@ -10,4 +11,6 @@ public interface ItemService {
 	Map<String, Object> ItemInsert(Item item, String userId) throws Exception;
 	Map<String, Object> ItemUpdate(int itemId, String userId, Item updateItem) throws Exception;
 	Map<String, Object> ItemDelete(int itemId, String userId) throws Exception;
+	Item getItem(int itemId) throws Exception;
+	Map<String, Object> getAllItems(Criteria criteria) throws Exception;
 }

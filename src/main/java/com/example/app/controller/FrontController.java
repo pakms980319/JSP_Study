@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.app.controller.item.ItemAdd;
 import com.example.app.controller.item.ItemBusinessManDelete;
 import com.example.app.controller.item.ItemBusinessManInfo;
 import com.example.app.controller.item.ItemBusinessManSearch;
@@ -87,6 +88,7 @@ public class FrontController extends HttpServlet {
 		map.put(path + "/user/update", new UserUpdateController());
 		
 		// item
+		map.put(path + "/item/businessMan/add", new ItemAdd());
 		map.put(path + "/item/businessMan/delete", new ItemBusinessManDelete());
 		map.put(path + "/item/businessMan/info", new ItemBusinessManInfo());
 		map.put(path + "/item/businessMan/search", new ItemBusinessManSearch());
