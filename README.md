@@ -56,19 +56,26 @@
 ---
 |URI|REQUEST METHOD|REQUEST PARAMETER TYPE|RESPONSE VALUE TYPE|DESCRIPTION|
 |---|---|---|---|---|
-|/user/join|POST|---|---|---|
-|/user/login|GET/POST|---|---|---|
-|/user/logout|POST|---|---|---|
+|/|---|---|---|---|
+|/favicon.ico|---|---|---|---|
 |---|---|---|---|---|
-|/seeker/join|---|---|---|---|
-|/seeker/remove|---|---|---|---|
-|/seeker/resume/add|---|---|---|---|
-|/seeker/resume/list|---|---|---|---|
+|/user/delete|---|---|---|---|
+|/user/info|---|---|---|---|
+|/user/join/businessMan|---|---|---|---|
+|/user/join|---|---|---|---|
+|/user/join/user|---|---|---|---|
+|/user/login|---|---|---|---|
+|/user/logout|---|---|---|---|
+|/user/update|---|---|---|---|
 |---|---|---|---|---|
-|/offer/join|---|---|---|---|
-|/offer/remove|---|---|---|---|
-|/offer/company/read|---|---|---|---|
-|---|---|---|---|---|
+|/item/businessMan/add|---|---|---|---|
+|/item/businessMan/delete|---|---|---|---|
+|/item/businessMan/info|---|---|---|---|
+|/item/businessMan/list|---|---|---|---|
+|/item/businessMan/update|---|---|---|---|
+|/item/info|---|---|---|---|
+|/item/list|---|---|---|---|
+
 
 :notebook_with_decorative_cover: DEPENDENCIES LIST
 ---
