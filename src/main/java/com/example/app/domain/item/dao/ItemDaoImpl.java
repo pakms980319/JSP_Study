@@ -236,6 +236,109 @@ public class ItemDaoImpl extends CommonDao implements ItemDao {
 		return list;
 
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	@Override
+	public int count2(String id) throws Exception {
+
+		pstmt = conn.prepareStatement("select count(*) from item where bussinessManId = ?");
+		pstmt.setString(1, id);
+		
+		rs = pstmt.executeQuery();
+		int count = -1;
+		if (rs != null && rs.next())
+			count = rs.getInt(1);
+		freeConnection(pstmt, rs);
+
+		return count;
+	}
+
+	// 07
+	@Override
+	public int count2(Criteria criteria, String id) throws Exception {
+
+		System.out.println("count func type : " + criteria.getType());
+		pstmt = conn.prepareStatement(
+				"select count(*) from item where " + criteria.getType() + " like '%" + criteria.getKeyword() + "%' AND bussinessManId = ?");
+		pstmt.setString(1, id);
+		rs = pstmt.executeQuery();
+		int count = -1;
+		if (rs != null && rs.next())
+			count = rs.getInt(1);
+		freeConnection(pstmt, rs);
+
+		return count;
+	}
+
+	@Override
+	public List<Item> Select2(PageDto pageDto, int offset, String id) throws SQLException {
+
+		pstmt = conn.prepareStatement("select * from item where bussinessManId = ? order by itemId desc limit ?,?");
+		pstmt.setString(1, id);
+		pstmt.setInt(2, offset); // 시작 offset
+		pstmt.setInt(3, pageDto.getCriteria().getAmount());
+
+		rs = pstmt.executeQuery();
+
+		List<Item> list = null;
+		Item dto = null;
+		if (rs != null) {
+			list = new ArrayList<Item>();
+			while (rs.next()) {
+				dto = new Item();
+				dto.setItemId(rs.getInt(1));
+				dto.setBussinessManId(rs.getString(2));
+				dto.setItemName(rs.getString(3));
+				dto.setItemType(rs.getString(4));
+				dto.setItemPrice(rs.getInt(5));
+				dto.setItemCount(rs.getInt(6));
+				dto.setItemManufacturingDate(rs.getDate(7));
+				list.add(dto);
+			}
+		}
+
+		freeConnection(pstmt, rs);
+		return list;
+
+	}
+
+	@Override
+	public List<Item> Select2(PageDto pageDto, int offset, String type, String keyword, String id) throws SQLException {
+
+		pstmt = conn.prepareStatement(
+				"select * from item where " + type + " like '%" + keyword + "%' AND bussinessManId = ? order by itemId desc limit ?,?");
+		pstmt.setString(1, id);
+		pstmt.setInt(2, offset); // 시작 offset
+		pstmt.setInt(3, pageDto.getCriteria().getAmount());
+
+		rs = pstmt.executeQuery();
+
+		List<Item> list = null;
+		Item dto = null;
+		if (rs != null) {
+			list = new ArrayList<Item>();
+			while (rs.next()) {
+				dto = new Item();
+				dto.setItemId(rs.getInt(1));
+				dto.setBussinessManId(rs.getString(2));
+				dto.setItemName(rs.getString(3));
+				dto.setItemType(rs.getString(4));
+				dto.setItemPrice(rs.getInt(5));
+				dto.setItemCount(rs.getInt(6));
+				dto.setItemManufacturingDate(rs.getDate(7));
+				list.add(dto);
+			}
+		}
+
+		freeConnection(pstmt, rs);
+		return list;
+
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
 	public List<Item> select2(String bussinessManId, int offset, int limit) throws Exception {

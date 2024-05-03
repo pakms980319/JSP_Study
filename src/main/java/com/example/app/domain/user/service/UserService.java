@@ -3,6 +3,7 @@ package com.example.app.domain.user.service;
 import java.util.List;
 import java.util.Map;
 
+import com.example.app.domain.user.dto.BussinessMan;
 import com.example.app.domain.user.dto.Session;
 import com.example.app.domain.user.dto.User;
 
@@ -43,5 +44,4 @@ public interface UserService {
 
 //	// 현재 접속중인 세션 Id list 리턴
 	List<Integer> getSessionIdList();
-
 }

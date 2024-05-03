@@ -89,10 +89,10 @@ public class FrontController extends HttpServlet {
 		// item
 		map.put(path + "/item/businessMan/delete", new ItemBusinessManDelete());
 		map.put(path + "/item/businessMan/info", new ItemBusinessManInfo());
-		map.put(path + "/item/businessMan/search", new ItemBusinessManSearch());
+		map.put(path + "/item/businessMan/list", new ItemBusinessManSearch());
 		map.put(path + "/item/businessMan/update", new ItemBusinessManUpdate());
 		map.put(path + "/item/info", new ItemInfoController());
-		map.put(path + "/item/search", new ItemSearchController());
+		map.put(path + "/item/list", new ItemSearchController());
 		
 	}
 	
