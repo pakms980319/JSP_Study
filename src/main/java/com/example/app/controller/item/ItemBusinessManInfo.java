@@ -57,6 +57,7 @@ public class ItemBusinessManInfo implements SubController {
 					}
 					int itemId = Integer.parseInt(req.getParameter("itemId"));
 					System.out.println("itemId : " + itemId);
+				
 					try {
 						Item item = itemService.getItem(itemId);
 						}catch (SQLException e) {
@@ -79,7 +80,7 @@ public class ItemBusinessManInfo implements SubController {
 			}
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 }
