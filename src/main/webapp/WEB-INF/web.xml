@@ -54,10 +54,11 @@
 		<url-pattern>/user/info</url-pattern>
 		<url-pattern>/user/update</url-pattern>
 		<url-pattern>/user/delete</url-pattern>
-		<url-pattern>/item/businessMan/search</url-pattern>
 		<url-pattern>/item/businessMan/info</url-pattern>
 		<url-pattern>/item/businessMan/delete</url-pattern>
 		<url-pattern>/item/businessMan/update</url-pattern>
+		<url-pattern>/item/businessMan/add</url-pattern>
+		<url-pattern>/item/businessMan/list</url-pattern>
 	</filter-mapping>
 </web-app>
 
