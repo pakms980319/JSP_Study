@@ -338,8 +338,14 @@ public class UserServiceImpl implements UserService {
 		String rePw = bCryptPasswordEncoder.encode(newUser.getPassword());
 		newUser.setPassword(rePw);
 		
+		// 유저 정보 종합
+		savedUser.setName(newUser.getName());
+		savedUser.setPhoneNumber(newUser.getPhoneNumber());
+		savedUser.setEmail(newUser.getEmail());
+		savedUser.setPassword(rePw);
+		
 		// 회원수정 오류 처리
-		if (!userDao.update(id, newUser)) {
+		if (!userDao.update(id, savedUser)) {
 			result.put("response", false);
 			result.put("msg", "회원수정 중 오류가 발생했습니다. 관리자에게 문의해주세요.");
 			return result;
@@ -375,6 +381,16 @@ public class UserServiceImpl implements UserService {
 		connectionPool.txCommit();
 		
 		return user;
+	}
+	
+	// DB Session 비우기
+	@Override
+	public boolean deleteAllSession() throws Exception {
+		connectionPool.txStart();
+		boolean isOk = sessionDao.deleteAll(); 
+		connectionPool.txCommit();
+		
+		return isOk;
 	}
 	
 	// 현재 접속중인 세션 Id list 리턴

@@ -1,6 +1,7 @@
 package com.example.app.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,10 @@ import com.example.app.controller.user.UserJoinUserSignUpController;
 import com.example.app.controller.user.UserLoginController;
 import com.example.app.controller.user.UserLogoutController;
 import com.example.app.controller.user.UserUpdateController;
+import com.example.app.domain.common.ConnectionPool_ByHikari;
 import com.example.app.domain.user.dto.Session;
+import com.example.app.domain.user.service.UserService;
+import com.example.app.domain.user.service.UserServiceImpl;
 
 public class FrontController extends HttpServlet {
 	/**
@@ -34,10 +38,38 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, SubController> map;
 
+	ConnectionPool_ByHikari connectionPool;
+	UserService service;
+	Session session;
+
+	public FrontController() {
+		try {
+			connectionPool = ConnectionPool_ByHikari.getInstance();
+			service = UserServiceImpl.getInstance();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("FrontController init() invoke..");
-	
+		
+		
+		try {
+			service.deleteAllSession();
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				connectionPool.txRollBack();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		
 		map = new HashMap<String, SubController>();
 		String path = config.getServletContext().getContextPath();
 		

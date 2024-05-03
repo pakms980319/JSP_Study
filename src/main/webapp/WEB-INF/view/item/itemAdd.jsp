@@ -13,7 +13,7 @@
 <%@ include file="/resources/static/jsp/link.jsp"%>
 </head>
 <body>
-<%
+	<%
 		String msg = null;
 	
 		if (session.getAttribute("msg") != null) {

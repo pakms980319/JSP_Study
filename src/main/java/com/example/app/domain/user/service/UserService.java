@@ -37,6 +37,9 @@ public interface UserService {
 
 	// 일반 유저정보 가져오기
 	User getUser(String username) throws Exception;
+	
+	// DB 세션비우기
+	boolean deleteAllSession() throws Exception;
 
 //	// 현재 접속중인 세션 Id list 리턴
 	List<Integer> getSessionIdList();
