@@ -35,30 +35,33 @@ public class ItemBusinessManDelete implements SubController {
 		Map<String, Object> result = null;
 		HttpSession session = req.getSession();
 		String userId = null;
+
 		try {
-			String method = req.getMethod();
-			if (session.getAttribute("session") != null) {
-				Session getSession = (Session) session.getAttribute("session");
-				userId = getSession.getUserId();
-				// GET 요청
-				if (method.contains("GET")) {
-					int itemId = Integer.parseInt(req.getParameter("itemId"));
-					Item item = null;
-					try {
-						item = service.getItem(itemId);
-					} catch (SQLException e) {
-						session.setAttribute("msg", "제거하려는 상품 Id가 없습니다. 상품 Id를 확인해 주세요.");
-						req.getRequestDispatcher("/WEB-INF/view/item/itemDetail.jsp").forward(req, resp);
-					}
-					item = service.getItem(itemId);
-					System.out.println("item : " + item);
-					session.setAttribute("delete", "다음과 같은 상품을 삭제하시겠습니까?" + item);
-					req.getRequestDispatcher("/WEB-INF/view/item/delete.jsp").forward(req, resp);
-					return;
-				}
+
+			Session getSession = (Session) session.getAttribute("session");
+			userId = getSession.getUserId();
+
+			int itemId = Integer.parseInt(req.getParameter("itemId"));
+			Item item = null;
+
+			try {
+				item = service.getItem(itemId);
+				result = service.ItemDelete(itemId, userId);
+			} catch (SQLException e) {
+				connectionPool.txRollBack();
+				session.setAttribute("msg", "제거하려는 상품 Id를 확인할 수 없습니다. 관리자에게 문의해주세요");
+				resp.sendRedirect("/item/businessMan/delete?itemId=" + itemId);
+				return;
+			}
+
+			if ((boolean) result.get("response")) {
+				session.setAttribute("msg", result.get("msg"));
+				resp.sendRedirect("/item/businessMan/list");
+				return;
 			} else {
-				req.setAttribute("msg", "상품삭제는 로그인을 하고나서 삭제가 가능합니다.");
-				req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
+				session.setAttribute("msg", result.get("msg"));
+				resp.sendRedirect("/item/businessMan/delete?itemId=" + itemId);
+				return;
 			}
 
 		} catch (Exception e) {
