@@ -1,3 +1,4 @@
+<%@page import="com.example.app.domain.user.dto.Session"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -11,6 +12,25 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<!--  businessMan일 때만 추가 정보 표시 -->
+		<%
+		Session sessionDto = null;
+		if (session.getAttribute("session") != null) {
+			sessionDto = (Session) session.getAttribute("session");
+		}
+		if (sessionDto != null && "BussinessMan".equals(sessionDto.getRole())) {
+		%>
+		<ul class="navbar-nav mr-auto">
+			<!-- 왼쪽에 추가된 메뉴 -->
+			<li class="nav-item"><a class="nav-link"
+				href="/item/businessMan/list">등록상품조회</a></li>
+			</li>
+		</ul>
+		<%
+		}
+		%>
+
+
 		<ul class="navbar-nav ml-auto">
 			<c:choose>
 				<c:when test="${sessionScope.session eq null}">
