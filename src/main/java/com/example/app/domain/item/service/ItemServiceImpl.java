@@ -13,6 +13,7 @@ import com.example.app.domain.item.dto.Item;
 import com.example.app.domain.item.dto.PageDto;
 import com.example.app.domain.user.dao.BussinessManDao;
 import com.example.app.domain.user.dao.BussinessManDaoImpl;
+import com.example.app.domain.user.dto.BussinessMan;
 
 public class ItemServiceImpl implements ItemService {
 
@@ -37,6 +38,57 @@ public class ItemServiceImpl implements ItemService {
 	public Item getItem(int itemId) throws Exception {
 		Item dto = itemDao.select(itemId);
 		return dto;
+	}
+
+	@Override
+	public Map<String, Object> getAllBusinessManItems(Criteria criteria, String userId) throws Exception {
+
+		connectionPool.txStart(); // TX START
+
+		Map<String, Object> returnValue = new HashMap();
+		
+		String businessManId = ((BussinessMan)bussinessManDao.select(userId)).getBussinessManId();
+		
+
+		String type = criteria.getType();
+		String keyword = criteria.getKeyword();
+
+		if (type == null || type.isEmpty() || keyword == null || keyword.isEmpty()) {
+			int count = itemDao.count2(businessManId);
+
+			System.out.println("getAllBusinessManItems count : " + count);
+			// pageDto생성
+			PageDto pageDto = new PageDto(count, criteria);
+
+			// 시작 게시물 번호 구하기(수정) - OFFSET
+			int offset = (criteria.getPageno() - 1) * criteria.getAmount();
+			System.out.println("getAllBusinessManItems offset : " + offset);
+			List<Item> list = itemDao.Select2(pageDto, offset, businessManId);
+
+			returnValue.put("list", list);
+			returnValue.put("pageDto", pageDto);
+			System.out.println("getAllBusinessManItems list : " + list);
+		} else // 키워드 조회
+		{
+			int count = itemDao.count2(criteria, businessManId);
+			System.out.println("getAllBusinessManItems count : " + count);
+			// pageDto생성
+			PageDto pageDto = new PageDto(count, criteria);
+
+			// 시작 게시물 번호 구하기(수정) - OFFSET
+			int offset = (criteria.getPageno() - 1) * criteria.getAmount();
+			System.out.println("getAllBusinessManItems offset : " + offset);
+			List<Item> list = itemDao.Select2(pageDto, offset, type, keyword, businessManId);
+
+			returnValue.put("list", list);
+			returnValue.put("pageDto", pageDto);
+			System.out.println("getAllBusinessManItems list : " + list);
+
+		}
+
+		connectionPool.txCommit(); // TX END
+
+		return returnValue;
 	}
 
 	@Override

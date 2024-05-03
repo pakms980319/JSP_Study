@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.example.app.domain.item.dto.Criteria;
 import com.example.app.domain.item.dto.Item;
+import com.example.app.domain.user.dto.BussinessMan;
 
 public interface ItemService {
 	Map<String, Object> BussinessManItemShow(String userId, int offset, int limit) throws Exception;
@@ -13,4 +14,5 @@ public interface ItemService {
 	Map<String, Object> ItemDelete(int itemId, String userId) throws Exception;
 	Item getItem(int itemId) throws Exception;
 	Map<String, Object> getAllItems(Criteria criteria) throws Exception;
+	Map<String, Object> getAllBusinessManItems(Criteria criteria, String userId) throws Exception;
 }

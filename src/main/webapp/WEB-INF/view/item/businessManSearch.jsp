@@ -39,7 +39,7 @@
 
 		<section class="search-block layout-150">
 
-			<form action="${pageContext.request.contextPath}/item/list">
+			<form action="${pageContext.request.contextPath}/item/businessMan/list">
 				<div class="m-2">
 					<select name="type" class="form-select">
 						<option value="itemName" selected>상품명</option>
@@ -93,7 +93,7 @@
 
 								<td><c:out value="${itemDto.itemId}" /></td>
 								<td><a
-									href="${pageContext.request.contextPath}/item/info?itemId=${itemDto.itemId}">
+									href="${pageContext.request.contextPath}/item/businessMan/info?itemId=${itemDto.itemId}">
 										<c:out value="${itemDto.itemName}" />
 								</a></td>
 								<td><c:out value="${itemDto.itemType}" /></td>
@@ -113,7 +113,7 @@
 							<c:if test="${pageDto.prev}">
 								<li class="page-item">
 									<!-- keyword 존재유무에 따라 선별하기 --> <a class="page-link"
-									href="${pageContext.request.contextPath}/item/list?pageNo=${pageDto.nowBlock * pageDto.pagePerBlock - pageDto.pagePerBlock*2 + 1}&type=${pageDto.criteria.type}&keyword=${pageDto.criteria.keyword}"
+									href="${pageContext.request.contextPath}/item/businessMan/list?pageNo=${pageDto.nowBlock * pageDto.pagePerBlock - pageDto.pagePerBlock*2 + 1}&type=${pageDto.criteria.type}&keyword=${pageDto.criteria.keyword}"
 									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 								</a>
 
@@ -127,13 +127,13 @@
 								var="pageno" step="1">
 
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/item/list?pageNo=${pageno}&type=${pageDto.criteria.type}&keyword=${pageDto.criteria.keyword}">${pageno}</a></li>
+									href="${pageContext.request.contextPath}/item/businessMan/list?pageNo=${pageno}&type=${pageDto.criteria.type}&keyword=${pageDto.criteria.keyword}">${pageno}</a></li>
 							</c:forEach>
 
 							<!-- next -->
 							<c:if test="${pageDto.next}">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/item/list?pageNo=${pageDto.nowBlock*pageDto.pagePerBlock+1}&type=${pageDto.criteria.type}&keyword=${pageDto.criteria.keyword}"
+									href="${pageContext.request.contextPath}/item/businessMan/list?pageNo=${pageDto.nowBlock*pageDto.pagePerBlock+1}&type=${pageDto.criteria.type}&keyword=${pageDto.criteria.keyword}"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a></li>
 							</c:if>

@@ -17,4 +17,8 @@ public interface ItemDao extends Crud<Item, Integer>{
 	int count(Criteria criteria) throws Exception;
 	List<Item> Select(PageDto pageDto, int offset) throws SQLException;
 	List<Item> Select(PageDto pageDto, int offset, String type, String keyword) throws SQLException;
+	int count2(String id) throws Exception;
+	int count2(Criteria criteria, String id) throws Exception;
+	List<Item> Select2(PageDto pageDto, int offset, String id) throws SQLException;
+	List<Item> Select2(PageDto pageDto, int offset, String type, String keyword, String id) throws SQLException;
 }
