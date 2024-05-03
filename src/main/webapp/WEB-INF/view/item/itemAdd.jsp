@@ -36,15 +36,15 @@
 	</header>
 
 	<div class="container">
-		<h2 class="mt-5 mb-4">물건 등록 폼</h2>
+		<h2 class="mt-5 mb-4">상품 등록</h2>
 		<form id="itemForm" method="post">
 			<div class="mb-3">
-				<label for="itemName" class="form-label">물건 이름</label> <input
+				<label for="itemName" class="form-label">상품명</label> <input
 					type="text" class="form-control" id="itemName" name="itemName"
 					required>
 			</div>
 			<div class="mb-3">
-				<label for="itemType" class="form-label">물건 종류</label> <select
+				<label for="itemType" class="form-label">카테고리</label> <select
 					class="form-select" id="itemType" name="itemType" required>
 					<option value="" disabled selected>물건 종류를 선택하세요</option>
 					<option value="의류">의류</option>
@@ -62,24 +62,26 @@
 				</select>
 			</div>
 			<div class="mb-3">
-				<label for="itemPrice" class="form-label">물건 가격</label>
+				<label for="itemPrice" class="form-label">상품 가격</label>
 				${NumberFormatExceptionItemPrice} <input type="number"
 					class="form-control" id="itemPrice" name="itemPrice" min="0"
 					required>
 			</div>
 			<div class="mb-3">
-				<label for="itemCount" class="form-label">물건 개수</label>
+				<label for="itemCount" class="form-label">재고</label>
 				${NumberFormatExceptionItemCount} <input type="number"
 					class="form-control" id="itemCount" name="itemCount" min="0"
 					required>
 			</div>
 			<div class="mb-3">
 
-				<label for="itemManufacturingDate" class="form-label">물건
-					제조일자</label> ${Manufactur} <input type="date" class="form-control"
+				<label for="itemManufacturingDate" class="form-label">제조일자</label> ${Manufactur} <input type="date" class="form-control"
 					id="itemManufacturingDate" name="itemManufacturingDate" required>
 			</div>
-			<button type="submit" class="btn btn-primary">등록</button>
+			<br />
+			<div class="d-flex justify-content-center">
+				<button type="submit" class="btn btn-primary" style="width: 150px;">등록</button>
+			</div>
 		</form>
 	</div>
 </body>

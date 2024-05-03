@@ -14,16 +14,17 @@
 </head>
 <body>
 	<%
-		String msg = null;
-		if (session.getAttribute("msg") != null) {
-			msg = (String)session.getAttribute("msg");
-		}
-		session.removeAttribute("msg");
+	String msg = null;
+	if (session.getAttribute("msg") != null) {
+		msg = (String) session.getAttribute("msg");
+	}
+	session.removeAttribute("msg");
 	%>
 
 	<script>
-		const msg = "<%=msg%>";
-		
+		const msg = "<%=msg%>
+		";
+
 		if (msg !== "null")
 			alert(msg);
 	</script>
@@ -34,22 +35,20 @@
 	</header>
 
 	<div class="container">
-		<h2 class="mt-5 mb-4">물건 수정 폼</h2>
+		<h2 class="mt-5 mb-4">상품 수정</h2>
 		<form id="itemForm" method="post">
+
+			<input type="hidden" name="itemId" value=${item.itemId }">
+
 			<div class="mb-3">
-				<label for="itemName" class="form-label">물건 아이디</label> <input
-					type="text" class="form-control" id="itemId" name="itemId"
-					required>
-			</div>
-			<div class="mb-3">
-				<label for="itemName" class="form-label">물건 이름</label> <input
+				<label for="itemName" class="form-label">상품명</label> <input
 					type="text" class="form-control" id="itemName" name="itemName"
-					required>
+					value="${item.itemName }" required>
 			</div>
 			<div class="mb-3">
-				<label for="itemType" class="form-label">물건 종류</label> <select
+				<label for="itemType" class="form-label">카테고리</label> <select
 					class="form-select" id="itemType" name="itemType" required>
-					<option value="" disabled selected>물건 종류를 선택하세요</option>
+					<option value="" disabled selected>카테고리를 선택하세요</option>
 					<option value="의류">의류</option>
 					<option value="주방">주방</option>
 					<option value="스포츠/레저">스포츠/레저</option>
@@ -65,22 +64,21 @@
 				</select>
 			</div>
 			<div class="mb-3">
-				<label for="itemPrice" class="form-label">물건 가격</label>
-				${NumberFormatExceptionItemPrice} <input type="number"
-					class="form-control" id="itemPrice" name="itemPrice" min="0"
-					required>
+				<label for="itemPrice" class="form-label">가격</label> <input
+					type="number" class="form-control" id="itemPrice" name="itemPrice"
+					min="0" value="${item.itemPrice }" required>
 			</div>
 			<div class="mb-3">
-				<label for="itemCount" class="form-label">물건 개수</label>
-				${NumberFormatExceptionItemCount} <input type="number"
-					class="form-control" id="itemCount" name="itemCount" min="0"
-					required>
+				<label for="itemCount" class="form-label">재고</label> <input
+					type="number" class="form-control" id="itemCount" name="itemCount"
+					min="0" value="${item.itemCount }" required>
 			</div>
 			<div class="mb-3">
 
-				<label for="itemManufacturingDate" class="form-label">물건
-					제조일자</label> ${Manufactur} <input type="date" class="form-control"
-					id="itemManufacturingDate" name="itemManufacturingDate" required>
+				<label for="itemManufacturingDate" class="form-label">제조일자</label> <input
+					type="date" class="form-control" id="itemManufacturingDate"
+					name="itemManufacturingDate" value="${item.itemManufacturingDate }"
+					required>
 			</div>
 			<button type="submit" class="btn btn-primary">수정</button>
 			<footer>

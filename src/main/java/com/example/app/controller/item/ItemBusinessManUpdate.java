@@ -2,6 +2,7 @@ package com.example.app.controller.item;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -40,18 +41,24 @@ public class ItemBusinessManUpdate implements SubController {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		System.out.println("ItemUpdate execute()");
 		Date itemManufacturingDate = null;
-		int itemId = 0;
-		int itemPrice = 0;
-		int itemCount = 0;
+		Item item = null;
+
 		try {
 			
 			String method = req.getMethod(); // 
-			
+			int itemId = Integer.parseInt(req.getParameter("itemId"));
 			// GET 요청
 			if (method.contains("GET")) {
-				HttpSession session = req.getSession();
-				String userId = ((Session)session.getAttribute("session")).getUserId();
-				Item item = service.getItem(itemId); 
+				try {
+					item = service.getItem(itemId);
+				} catch (SQLException e) {
+					connectionPool.txRollBack();
+					e.printStackTrace();
+					req.setAttribute("msg", "아이템 정보를 불러올 수 없습니다. 관리자에게 문의해주세요.");
+					req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
+					return;
+				}
+				
 				req.setAttribute("item", item);
 				req.getRequestDispatcher("/WEB-INF/view/item/ItemBusinessManUpdate.jsp").forward(req, resp);
 				return;
@@ -59,59 +66,50 @@ public class ItemBusinessManUpdate implements SubController {
 			
 			// POST 요청 (etc Method) (api 문서 만들기)
 			// 01 파라미터 받기
-			// 사용자 입력 값 받기
+			// 사용자 입력 값 받기 
 			HttpSession session = req.getSession();
 			
-			if (session.getAttribute("sessionId") == null) {
-				req.setAttribute("msg", "로그인 정보를 확인할 수 없습니다.");
-				req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
-				return ;
-			}
-			
-			int sessionId = (int) session.getAttribute("sessionId");
-			String id = ((Session) session.getAttribute("session")).getUserId();
-			
+			Session sessionDto = (Session) session.getAttribute("session");
+			String id = sessionDto.getUserId();
 			
 			itemId = Integer.parseInt(req.getParameter("itemId"));
 			String itemName = req.getParameter("itemName");
 			String itemType = req.getParameter("itemType");
-			itemPrice = Integer.parseInt(req.getParameter("itemPrice"));
-			itemCount = Integer.parseInt(req.getParameter("itemCount"));
+			int itemPrice = Integer.parseInt(req.getParameter("itemPrice"));
+			int itemCount = Integer.parseInt(req.getParameter("itemCount"));
 			String manufacturingDateStr = req.getParameter("itemManufacturingDate");
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(System.currentTimeMillis());
+			Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+			
 			try {
-				 itemManufacturingDate = new java.sql.Date(dateFormat.parse(manufacturingDateStr).getTime());
+				 itemManufacturingDate = new Date(dateFormat.parse(manufacturingDateStr).getTime());
 				 if (itemManufacturingDate.after(currentTimestamp)) {
-					 req.setAttribute("Manufactur", "제조년일은 현재시간보다 이전시간이어야 합니다.");
-					 session.setAttribute("msg", "상품 수정에 실패하였습니다.");
-					 req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
+					 req.setAttribute("msg", "입력 정보가 잘못되었습니다.");
+					 req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
 					 return;
-					}
+				}
 			} catch (Exception e) {
 			    // 날짜 형식이 잘못된 경우 예외 처리
 			    e.printStackTrace();
 			}
-			Item newItem = new Item();
-			newItem.setItemName(itemName);
-			newItem.setItemType(itemType);
-			newItem.setItemPrice(itemPrice);
-			newItem.setItemCount(itemCount);
-			newItem.setItemManufacturingDate(itemManufacturingDate);
-			
-			
+		
 			// 02 유효성 체크
 			if (!isValid(itemId) || !isValid(itemName) || !isValid(itemType) || !isValid(itemPrice) || !isValid(itemCount) ||!isValid(manufacturingDateStr)) {
 				req.setAttribute("msg", "입력 정보가 잘못되었습니다.");
 				req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
 				return ;
 			}
-	
-			
+		
 			// 03 서비스 실행
 			Map<String, Object> result = null;
 			try {
-				result = service.ItemUpdate(itemId, id, newItem);	
+				item = service.getItem(itemId);
+				item.setItemName(itemName);
+				item.setItemType(itemType);
+				item.setItemManufacturingDate(itemManufacturingDate);
+				item.setItemCount(itemCount);
+				item.setItemPrice(itemPrice);
+				result = service.ItemUpdate(itemId, id, item);	
 			} catch (SQLException e) {
 				e.printStackTrace();
 				connectionPool.txRollBack();
@@ -125,8 +123,7 @@ public class ItemBusinessManUpdate implements SubController {
 				}
 				
 				session.setAttribute("msg", result.get("msg"));
-				
-				resp.sendRedirect("/");
+				resp.sendRedirect("/item/businessMan/list");
 				return;
 				
 			} else {
@@ -138,13 +135,6 @@ public class ItemBusinessManUpdate implements SubController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-
-			try {
-				connectionPool.txRollBack();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			// 예외페이지로 넘기기 .. or new ServletException("message")
 		}
 		
 	}

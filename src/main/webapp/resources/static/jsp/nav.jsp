@@ -25,6 +25,9 @@
 			<li class="nav-item"><a class="nav-link"
 				href="/item/businessMan/list">등록상품조회</a></li>
 			</li>
+			<li class="nav-item"><a class="nav-link"
+				href="/item/businessMan/add">상품등록</a></li>
+			</li>
 		</ul>
 		<%
 		}
