@@ -33,7 +33,7 @@ public class PermissionFilter implements Filter {
 		pageGradeMap.put(contextPath + "/item/businessMan/list", Role.ROLE_BUSINESSMAN);
 		pageGradeMap.put(contextPath + "/item/businessMan/update", Role.ROLE_BUSINESSMAN);
 		pageGradeMap.put(contextPath + "/item/businessMan/delete", Role.ROLE_BUSINESSMAN);
-		
+		pageGradeMap.put(contextPath + "/item/businessMan/add", Role.ROLE_BUSINESSMAN);
 	}
 
 	@Override

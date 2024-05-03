@@ -193,6 +193,7 @@ public class ItemServiceImpl implements ItemService {
 		connectionPool.txStart();
 		Map<String, Object> result = new HashMap<String, Object>();
 		String bussinessManId = bussinessManDao.select(userId).getBussinessManId();
+
 		item.setBussinessManId(bussinessManId);
 
 		boolean isSaved = itemDao.insert(item);
