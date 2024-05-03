@@ -31,7 +31,7 @@
 			<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/">HOME</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Item(LIST)</li>
+					<li class="breadcrumb-item active" aria-current="page">등록상품조회</li>
 				</ol>
 			</nav>
 
