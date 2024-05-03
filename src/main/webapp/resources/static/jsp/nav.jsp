@@ -14,11 +14,11 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<!--  businessMan일 때만 추가 정보 표시 -->
 		<%
-		Session sessionDto = null;
+		Session sessionDto2 = null;
 		if (session.getAttribute("session") != null) {
-			sessionDto = (Session) session.getAttribute("session");
+			sessionDto2 = (Session) session.getAttribute("session");
 		}
-		if (sessionDto != null && "BussinessMan".equals(sessionDto.getRole())) {
+		if (sessionDto2 != null && "BussinessMan".equals(sessionDto2.getRole())) {
 		%>
 		<ul class="navbar-nav mr-auto">
 			<!-- 왼쪽에 추가된 메뉴 -->
