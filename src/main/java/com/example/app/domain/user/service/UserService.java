@@ -3,7 +3,11 @@ package com.example.app.domain.user.service;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 import com.example.app.domain.item.dto.Item;
+=======
+import com.example.app.domain.user.dto.BussinessMan;
+>>>>>>> 477bda8242cfdd483458a311fe5cf53b94e7c6e7
 import com.example.app.domain.user.dto.Session;
 import com.example.app.domain.user.dto.User;
 
@@ -45,6 +49,6 @@ public interface UserService {
 //	// 현재 접속중인 세션 Id list 리턴
 	List<Integer> getSessionIdList();
 
-	
+	BussinessMan getBussinessMan(String bussinessManId) throws Exception;
 
 }

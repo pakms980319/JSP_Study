@@ -77,12 +77,14 @@
 				</tbody>
 			</table>
 			<div class="text-right">
-				<a href="/user/update" class="btn btn-primary mr-2">회원수정</a> <a
-					href="/user/delete" class="btn btn-danger">회원탈퇴</a>
+				<div class="text-right">
+					<a href="/user/update" class="btn btn-primary mr-2">회원수정</a> <a
+						href="/user/delete" class="btn btn-danger">회원탈퇴</a>
+				</div>
+
 			</div>
 		</div>
 	</main>
-
 	<!-- footer -->
 	<footer>
 		<!-- footer  -->

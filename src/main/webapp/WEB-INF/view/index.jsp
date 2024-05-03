@@ -57,9 +57,10 @@
 		</c:choose>
 
 		<p>원하시는 상품을 검색해 보세요.</p>
-		<form class="form-inline">
+		<form class="form-inline" action="/item/list" method="get">
+			<input type="hidden" name="type" value="itemName" />
 			<input class="form-control mr-sm-2" type="search" placeholder="상품 검색"
-				aria-label="Search">
+				aria-label="Search" name="keyword">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		</form>
 	</main>

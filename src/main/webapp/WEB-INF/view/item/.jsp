@@ -14,18 +14,18 @@
 </head>
 <body>
 	<%
-	String msg = null;
-
-	if (session.getAttribute("msg") != null) {
-		msg = (String) session.getAttribute("msg");
-	}
-
-	session.removeAttribute("msg");
+		String msg = null;
+	
+		if (session.getAttribute("msg") != null) {
+			msg = (String)session.getAttribute("msg");
+		}
+		
+		session.removeAttribute("msg");
 	%>
 
 	<script>
 		const msg = "<%=msg%>";
-
+		
 		if (msg !== "null")
 			alert(msg);
 	</script>
@@ -80,11 +80,11 @@
 					id="itemManufacturingDate" name="itemManufacturingDate" required>
 			</div>
 			<button type="submit" class="btn btn-primary">등록</button>
+			<footer>
+				<!-- footer  -->
+				<%@ include file="/resources/static/jsp/footer.jsp"%>
+			</footer>
 		</form>
 	</div>
 </body>
-<footer>
-	<!-- footer  -->
-	<%@ include file="/resources/static/jsp/footer.jsp"%>
-</footer>
 </html>
