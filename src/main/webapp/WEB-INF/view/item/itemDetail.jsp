@@ -72,10 +72,8 @@
 						<td>${item.itemManufacturingDate}</td>
 					</tr>
 				</table>
-				<div class="text-right">
-					<a href="/user/update" class="btn btn-primary mr-2">회원수정</a> <a
-						href="/user/delete" class="btn btn-danger">회원탈퇴</a>
-				</div>
+				<a href="/item/businessMan/update" class="btn btn-primary mr-2">상품 등록</a> 
+				<a href="/item/businessMan/delete" class="btn btn-danger">상품 삭제</a>
 			</c:if>
 			<c:if test="${empty item}">
 				<p>아이템이 존재하지 않습니다.</p>

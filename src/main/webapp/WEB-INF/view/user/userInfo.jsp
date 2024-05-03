@@ -77,8 +77,11 @@
 				</tbody>
 			</table>
 			<div class="text-right">
-				<a href="/item/businessMan/update" class="btn btn-primary mr-2">상품 등록</a> 
-				<a href="/item/businessMan/delete" class="btn btn-danger">상품 삭제</a>
+				<div class="text-right">
+					<a href="/user/update" class="btn btn-primary mr-2">회원수정</a> <a
+						href="/user/delete" class="btn btn-danger">회원탈퇴</a>
+				</div>
+
 			</div>
 		</div>
 	</main>
