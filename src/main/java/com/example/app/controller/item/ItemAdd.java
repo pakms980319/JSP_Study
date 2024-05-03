@@ -2,6 +2,7 @@ package com.example.app.controller.item;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -45,70 +46,94 @@ public class ItemAdd implements SubController {
 		int itemPrice = 0;
 		int itemCount = 0;
 		try {
-
 			String method = req.getMethod();
-			if (session.getAttribute("session") != null) {
-				Session getSession = (Session) session.getAttribute("session");
-				String role = getSession.getRole();
-				userId = getSession.getUserId();
-				// GET 요청
-				if (method.contains("GET")) {
-					// 유효성 체크
-					if (!(role.equals("BussinessMan"))) {
-						req.setAttribute("msg", "상품등록은 사업자만 가능합니다");
-						req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
-					}
+
+			Session getSession = (Session) session.getAttribute("session");
+			String role = getSession.getRole();
+			userId = getSession.getUserId();
+			
+			
+			// GET 요청
+			if (method.contains("GET")) {
+				// 유효성 체크
+				req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
+				return;
+			}
+
+			
+			// POST
+			// 01 파라미터 받기
+			String itemName = req.getParameter("itemName");
+			String itemType = req.getParameter("itemType");
+			
+			try {
+				itemPrice = Integer.parseInt(req.getParameter("itemPrice"));
+			} catch (Exception e) {
+				req.setAttribute("NumberFormatExceptionItemPrice", "물건 가격은 숫자만 들어갈 수 있습니다.");
+				
+				session.setAttribute("msg", "상품등록에 실패하였습니다.");
+				req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
+				return;
+			}
+			
+			try {
+				itemCount = Integer.parseInt(req.getParameter("itemCount"));
+			} catch (Exception e) {
+				req.setAttribute("NumberFormatExceptionItemCount", "물건 개수는 숫자만 들어갈 수 있습니다.");
+				
+				session.setAttribute("msg", "상품등록에 실패하였습니다.");
+				req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
+				return;
+			}
+			
+			String manufacturingDateStr = req.getParameter("itemManufacturingDate");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+			
+			try {
+				itemManufacturingDate = new Date(dateFormat.parse(manufacturingDateStr).getTime());
+				
+				if (itemManufacturingDate.after(currentTimestamp)) {
+					req.setAttribute("Manufactur", "제조년일은 현재시간보다 이전시간이어야 합니다.");
+					
+					session.setAttribute("msg", "상품등록에 실패하였습니다.");
+					req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
+					return;
+				}
+			} catch (Exception e) {
+				// 날짜 형식이 잘못된 경우 예외 처리
+				e.printStackTrace();
+			}
+			
+			Item item = new Item(itemName, itemType, itemPrice, itemCount, itemManufacturingDate);
+			
+			try {
+				result = service.ItemInsert(item, userId);
+			} catch (SQLException e1) {
+				connectionPool.txRollBack();
+				e1.printStackTrace();
+			}
+			
+			if (result != null) {
+				if ( (Boolean) result.get("response") ) {
+					session.setAttribute("msg", result.get("msg"));
+					resp.sendRedirect("/item/businessMan/list");
+					return;
+				} else {
+					session.setAttribute("msg", result.get("msg"));
 					req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
 					return;
 				}
 			} else {
-				req.setAttribute("msg", "상품등록은 로그인을 하고나서 등록이 가능합니다.");
+				req.setAttribute("msg", "에러가 발생했습니다 관리자에게 문의해주세요.");
 				req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
+				return ;
 			}
-			
-			// 01 파라미터 받기
-			String itemName = req.getParameter("itemName");
-			String itemType = req.getParameter("itemType");
-			try {
-			itemPrice = Integer.parseInt(req.getParameter("itemPrice"));
-			} catch(Exception e) {
-				req.setAttribute("NumberFormatExceptionItemPrice", "물건 가격은 숫자만 들어갈 수 있습니다.");
-				session.setAttribute("msg", "상품등록에 실패하였습니다.");
-				req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
-			}
-			try {
-			itemCount = Integer.parseInt(req.getParameter("itemCount"));
-			}catch(Exception e) {
-				req.setAttribute("NumberFormatExceptionItemCount", "물건 개수는 숫자만 들어갈 수 있습니다.");
-				session.setAttribute("msg", "상품등록에 실패하였습니다.");
-				req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
-			}
-			String manufacturingDateStr = req.getParameter("itemManufacturingDate");
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(System.currentTimeMillis());
-			try {
-				 itemManufacturingDate = new java.sql.Date(dateFormat.parse(manufacturingDateStr).getTime());
-				 if (itemManufacturingDate.after(currentTimestamp)) {
-					 req.setAttribute("Manufactur", "제조년일은 현재시간보다 이전시간이어야 합니다.");
-					 session.setAttribute("msg", "상품등록에 실패하였습니다.");
-					 req.getRequestDispatcher("/WEB-INF/view/item/itemAdd.jsp").forward(req, resp);
-					 return;
-					}
-			} catch (Exception e) {
-			    // 날짜 형식이 잘못된 경우 예외 처리
-			    e.printStackTrace();
-			}
-			Item item = new Item(itemName, itemType, itemPrice, itemCount, itemManufacturingDate);
-			try {
-				service.ItemInsert(item, userId);
-				connectionPool.txRollBack();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
-				// 예외페이지로 넘기기 .. or new ServletException("message")
+			// 예외페이지로 넘기기 .. or new ServletException("message")
 		}
 	}
 }

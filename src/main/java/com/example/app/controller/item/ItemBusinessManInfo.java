@@ -54,6 +54,7 @@ public class ItemBusinessManInfo implements SubController {
 					if (!(role.equals("BussinessMan"))) {
 						req.setAttribute("msg", "상품 리스트조회는 사업자만 가능합니다");
 						req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
+						return;
 					}
 					int itemId = Integer.parseInt(req.getParameter("itemId"));
 					System.out.println("itemId : " + itemId);
@@ -62,19 +63,26 @@ public class ItemBusinessManInfo implements SubController {
 						}catch (SQLException e) {
 							session.setAttribute("msg", "상품이 없습니다. 상품id를 확인해 주세요.");
 							req.getRequestDispatcher("/WEB-INF/view/item/itemDetail.jsp").forward(req, resp);
+							return;
 						}
+					
 					Item item = itemService.getItem(itemId);
+					
 					String bussinessManId = item.getBussinessManId();
 					BussinessMan bussinessMan = userService.getBussinessMan(bussinessManId);
 					userId = bussinessMan.getUserId();
+					
 					User user = userService.getUser(userId);
+					
 					String userName = user.getName();
 					req.setAttribute("userName", userName);
 					req.setAttribute("item", item);
 					req.getRequestDispatcher("/WEB-INF/view/item/itemDetail.jsp").forward(req, resp);
+					return;
 				} else {
 					req.setAttribute("msg", "상품리스트등록은 로그인을 하고나서 등록이 가능합니다.");
 					req.getRequestDispatcher("/WEB-INF/view/error/error.jsp").forward(req, resp);
+					return;
 				}
 			}
 			

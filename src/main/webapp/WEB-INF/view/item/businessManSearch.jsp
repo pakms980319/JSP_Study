@@ -19,6 +19,23 @@
 	href="${pageContext.request.contextPath}/resources/static/css/common.css" />
 </head>
 <body>
+	<%
+	String msg = null;
+
+	if (session.getAttribute("msg") != null) {
+		msg = (String) session.getAttribute("msg");
+	}
+
+	session.removeAttribute("msg");
+	%>
+
+	<script>
+		const msg = "<%=msg%>";
+
+		if (msg !== "null")
+			alert(msg);
+	</script>
+
 	<header>
 		<!-- nav -->
 		<%@ include file="/resources/static/jsp/nav.jsp"%>
@@ -39,7 +56,8 @@
 
 		<section class="search-block layout-150">
 
-			<form action="${pageContext.request.contextPath}/item/businessMan/list">
+			<form
+				action="${pageContext.request.contextPath}/item/businessMan/list">
 				<div class="m-2">
 					<select name="type" class="form-select">
 						<option value="itemName" selected>상품명</option>

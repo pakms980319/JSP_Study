@@ -27,8 +27,7 @@
 	session.removeAttribute("msg");
 	%>
 	<script>
-		const msg = "<%=msg%>
-		";
+		const msg = "<%=msg%>";
 
 		if (msg !== "null")
 			alert(msg);
@@ -72,8 +71,8 @@
 						<td>${item.itemManufacturingDate}</td>
 					</tr>
 				</table>
-				<a href="/item/businessMan/update" class="btn btn-primary mr-2">상품 등록</a> 
-				<a href="/item/businessMan/delete" class="btn btn-danger">상품 삭제</a>
+				<a href="/item/businessMan/update?itemId=${item.itemId}" class="btn btn-primary mr-2">상품 수정</a> 
+				<a href="/item/businessMan/delete?itemId=${item.itemId}" id="itemDelete" class="btn btn-danger" onclick="return confirm('상품을 정말 삭제하시겠습니까?');">상품 삭제</a>
 			</c:if>
 			<c:if test="${empty item}">
 				<p>아이템이 존재하지 않습니다.</p>
